@@ -41,7 +41,20 @@ app.use(session({
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join (__dirname,'client')))
-app.use(cors())
+
+const allowedIPAddress = 'http://18.232.92.158:5000/'; // Replace with your AWS EC2 instance's public IP address
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (origin === allowedIPAddress || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions))
 
 app.use(passport.initialize());
 app.use(passport.session());
