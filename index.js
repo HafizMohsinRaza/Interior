@@ -76,6 +76,6 @@ app.use((req, res, next)=>{
 
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT,() => {
+app.listen(PORT,'0.0.0.0',() => {
     console.log("server is running!")
 })
